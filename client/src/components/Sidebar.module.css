@@ -1,0 +1,131 @@
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--sidebar-color);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  z-index: 100;
+  transition: width var(--transition-speed) ease;
+}
+
+.logoContainer {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logoIcon {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.logoText {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navMenu {
+  flex: 1;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--border-radius);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.navItem:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+  color: var(--text-color);
+  transform: translateX(4px);
+}
+
+.active {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  color: var(--primary-color) !important;
+  font-weight: 500;
+}
+
+.navIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.navLabel {
+  font-size: 0.95rem;
+}
+
+.sidebarFooter {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.version {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}
+
+/* Responsive sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    width: var(--sidebar-collapsed-width);
+  }
+  
+  .logoText, .navLabel, .sidebarFooter {
+    display: none;
+  }
+  
+  .logoContainer {
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .navMenu {
+    padding: 16px 8px;
+  }
+  
+  .navItem {
+    justify-content: center;
+    padding: 12px;
+  }
+  
+  .navItem:hover {
+    transform: none;
+  }
+}

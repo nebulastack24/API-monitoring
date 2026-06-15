@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/apis")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ApiController {
 
     private final MonitoringService service;

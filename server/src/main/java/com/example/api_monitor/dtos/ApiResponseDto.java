@@ -14,4 +14,12 @@ public class ApiResponseDto {
     private String url;
 
     private Integer checkInterval;
+
+    private String status;
+
+    private Long responseTime;
+
+    private Double uptimePercentage;
+
+    private java.time.LocalDateTime lastChecked;
 }

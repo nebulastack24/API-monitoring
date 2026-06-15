@@ -3,9 +3,11 @@ package com.example.api_monitor.service;
 import com.example.api_monitor.dtos.ApiCheckResponseDto;
 import com.example.api_monitor.dtos.ApiRequestDto;
 import com.example.api_monitor.dtos.ApiResponseDto;
+import com.example.api_monitor.dtos.DashboardResponseDto;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
+import java.util.*;
+
 
 public interface MonitoringService {
 
@@ -18,4 +20,6 @@ public interface MonitoringService {
             Long apiId,
             int page,
             int size);
+    void monitorApis();
+    DashboardResponseDto getDashboard();
 }
