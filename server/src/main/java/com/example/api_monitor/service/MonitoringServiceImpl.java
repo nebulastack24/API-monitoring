@@ -161,24 +161,40 @@ public class MonitoringServiceImpl
     @Override
     public DashboardResponseDto getDashboard() {
 
-        long totalApis = repository.count();
+        List<MonitoredApi> apis = repository.findAll();
+        long totalApis = apis.size();
 
-        long healthyApis =
-                apiCheckRepository.countByStatus("UP");
+        long healthyApis = 0;
+        long failedApis = 0;
 
-        long failedApis =
-                apiCheckRepository.countByStatus("DOWN");
+        for (MonitoredApi api : apis) {
+            Optional<ApiCheck> lastCheckOpt = apiCheckRepository.findFirstByApiIdOrderByCheckedAtDesc(api.getId());
+            if (lastCheckOpt.isPresent()) {
+                String status = lastCheckOpt.get().getStatus();
+                if ("UP".equals(status)) {
+                    healthyApis++;
+                } else if ("DOWN".equals(status)) {
+                    failedApis++;
+                }
+            }
+        }
 
         Double averageResponseTime =
                 apiCheckRepository.averageResponseTime();
+        if (averageResponseTime == null) {
+            averageResponseTime = 0.0;
+        }
 
         long totalChecks =
                 apiCheckRepository.count();
 
+        long totalUpChecks =
+                apiCheckRepository.countByStatus("UP");
+
         double uptimePercentage =
                 totalChecks == 0
-                        ? 0
-                        : ((double) healthyApis / totalChecks) * 100;
+                        ? 100.0
+                        : ((double) totalUpChecks / totalChecks) * 100;
 
         return DashboardResponseDto.builder()
                 .totalApis(totalApis)
